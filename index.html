@@ -71,10 +71,15 @@ body {
         .copy-button:hover {
             background-color: #45a049;
         }
+        .cog {
+            width: 20px;
+        }
+        .mail {
+            width: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Make your new signature!</h1>
 
     <div class="input-container">
         <div class="input-field">
@@ -101,6 +106,11 @@ body {
 
     <button class="copy-button" id="copy-button">Copy Signature</button>
     <p id="copy-feedback" style="color: green; display: none;">Signature copied to clipboard!</p>
+
+    <h2>Log into your email at <a href="https://outlook.office.com/">outlook.office.com</a>, then go to <img src="gear-solid.svg" alt="Gear" class="cog"/> Settings > <img src="envelope-solid.svg" alt="mail" class="mail"/> Mail > Compose and reply</h2>
+    <h3>From there you can paste your newly created signature under "New Signature"</h3>
+
+
 
     <script>
         const nameInput = document.getElementById('name');
