@@ -85,7 +85,7 @@ body {
         .mail {
             width: 20px;
         }
-        .download-button {
+        .copy-html-button {
             padding: 10px 15px;
             background-color: #1E90FF;
             color: white;
@@ -97,7 +97,7 @@ body {
             margin-left: 5px;
         }
 
-        .download-button:hover {
+        .copy-html-button:hover {
             background-color: #187bcd;
         }
     </style>
@@ -128,8 +128,8 @@ body {
     </div>
 
     <button class="copy-button" id="copy-button">Copy Signature</button>
-    <button class="download-button" id="download-button">Download Signature</button>
-    <p id="copy-feedback" style="color: green; display: none;">Signature copied to clipboard!</p>
+    <button class="copy-html-button" id="copy-html-button">Copy HTML</button>
+    <p id="copy-feedback" style="color: green; display: none;">Content copied to clipboard!</p>
 
     <h2>Log into outlook on the web, not the desktop app (<a href="https://outlook.office.com/">outlook.office.com</a>), then go to <img src="gear-solid.svg" alt="Gear" class="cog"/> Settings > <img src="envelope-solid.svg" alt="mail" class="mail"/> Mail > Compose and reply</h2>
     <h3>From there you can paste your newly created signature under "New Signature"</h3>
@@ -214,19 +214,25 @@ body {
             window.getSelection().removeAllRanges(); // Clear selection after copy
         });
 
-        const downloadButton = document.getElementById('download-button');
+        const copyHtmlButton = document.getElementById('copy-html-button');
 
-        downloadButton.addEventListener('click', function() {
+        copyHtmlButton.addEventListener('click', function() {
             const signatureHtml = signaturePreview.innerHTML;
-            const blob = new Blob([signatureHtml], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'email_signature.html';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            const textarea = document.createElement('textarea');
+            textarea.value = signatureHtml;
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                document.execCommand('copy');
+                copyFeedback.textContent = 'HTML copied to clipboard!';
+                copyFeedback.style.display = 'block';
+                setTimeout(() => copyFeedback.style.display = 'none', 2000);
+            } catch (err) {
+                console.error('Failed to copy HTML: ', err);
+            }
+
+            document.body.removeChild(textarea);
         });
 
     </script>
