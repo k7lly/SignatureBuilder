@@ -218,11 +218,11 @@ body {
 
         downloadButton.addEventListener('click', function() {
             const signatureHtml = signaturePreview.innerHTML;
-            const blob = new Blob([signatureHtml], { type: 'text/htm' });
+            const blob = new Blob([signatureHtml], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'email_signature.htm';
+            a.download = 'email_signature.html';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
