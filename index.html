@@ -218,7 +218,7 @@ body {
 
         downloadButton.addEventListener('click', function() {
             const signatureHtml = signaturePreview.innerHTML;
-            const blob = new Blob([signatureHtml], { type: 'text/html' });
+            const blob = new Blob([signatureHtml], { type: 'text/htm' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -228,7 +228,7 @@ body {
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         });
-        
+
     </script>
 </body>
 </html>
