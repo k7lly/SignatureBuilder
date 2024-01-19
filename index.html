@@ -128,14 +128,27 @@ body {
     </div>
 
     <button class="copy-button" id="copy-button">Copy Signature</button>
-    <button class="copy-html-button" id="copy-html-button">Copy HTML</button>
     <p id="copy-feedback" style="color: green; display: none;">Content copied to clipboard!</p>
 
+    <h2>how to start using your new signature:</h2>
 
-    <h2>Log into outlook on the web, not the desktop app (<a href="https://outlook.office.com/">outlook.office.com</a>), then go to <img src="gear-solid.svg" alt="Gear" class="cog"/> Settings > <img src="envelope-solid.svg" alt="mail" class="mail"/> Mail > Compose and reply</h2>
-    <h3>From there you can paste your newly created signature under "New Signature"</h3>
+    <div class="link-section">
+        <p>
+        <a href="#" id="ios-app-link">Outlook iOS app</a>
+        |
+        <a href="#" id="mac-desktop-link">Outlook on Mac desktop</a>
+        |
+        <a href="#" id="windows-desktop-link">Outlook on Windows desktop</a>
+        |
+        <a href="#" id="outlook-web-link">Outlook on the web</a>
+        </p>
+    </div>
 
+    <div id="tutorial-section" style="display: none;">
+        <div id="tutorial-content"></div>
+    </div>
 
+    <h1>If you have any questions, email me (Kelly) at <a href="mailto:it@millcoffee.com">it@millcoffee.com</a></h1>
 
     <script>
         const nameInput = document.getElementById('name');
@@ -215,25 +228,58 @@ body {
             window.getSelection().removeAllRanges(); // Clear selection after copy
         });
 
-        const copyHtmlButton = document.getElementById('copy-html-button');
+        // Function to display the tutorial content as HTML
+        function displayTutorial(htmlContent) {
+            document.getElementById('tutorial-content').innerHTML = htmlContent;
+            document.getElementById('tutorial-section').style.display = 'block';
+        }
 
-        copyHtmlButton.addEventListener('click', function() {
-            const signatureHtml = signaturePreview.innerHTML;
-            const textarea = document.createElement('textarea');
-            textarea.value = signatureHtml;
-            document.body.appendChild(textarea);
-            textarea.select();
+        // HTML content for each tutorial
+        const iosAppTutorial = `
+        <h2>For outlook on iOS, Copy your signature here then:</h2>
+        <h3>1. Open the Outlook iOS app</h3>
+        <h3>2. Navigate to Settings>Mail>Signature</h3>
+        <h3>3. click on the text box, delete the current signature, then paste in your new signature!</h3>
+        `;
+        const macDesktopTutorial = `
+        <h2>For outlook on a Mac desktop, first log in to outlook on the web at <a href="https://outlook.office.com/">outlook.office.com</a>, from there:</h2>
+        <h3>1. Open a blank email and paste in your new signature</h3>
+        <h3>2. Select and re-copy your signature from the blank email (ctrl+a, ctrl+c)</h3>
+        <h3>3. Open the outlook app on your desktop and in the top left corner, navigate to Outlook>Preferences>Email>Signatures</h3>
+        <h3>4. Click the "+", name your signature, then paste the signature you copied from the blank email into the "Signature" box.</h3>
+        <h3>5. Under Choose default signature, select the account you want to use as your default signature for new messages and replies and forwards.</h3>
+        `;
+        const windowsDesktopTutorial = `
+        <h2>For outlook on a Windows desktop, first log in to outlook on the web at <a href="https://outlook.office.com/">outlook.office.com</a>, from there:</h2>
+        <h3>1. Open a blank email and paste in your new signature</h3>
+        <h3>2. Select and re-copy your signature from the blank email (ctrl+a, ctrl+c)</h3>
+        <h3>3. Open the outlook app on your desktop and navigate to File>Options>Mail>Signatures</h3>
+        <h3>4. Click "New", name your signature, then paste the signature you copied from the blank email into the "Edit Signature" box.</h3>
+        `;
+        const outlookWebTutorial = `
+        <h2>For outlook on the web, log in at <a href="https://outlook.office.com/">outlook.office.com</a>, then go to <img src="gear-solid.svg" alt="Gear" class="cog"/> Settings > <img src="envelope-solid.svg" alt="mail" class="mail"/> Mail > Compose and reply</h2>
+        <h3>From there you can paste your newly created signature under "New Signature"</h3>
+        `;
 
-            try {
-                document.execCommand('copy');
-                copyFeedback.textContent = 'HTML copied to clipboard!';
-                copyFeedback.style.display = 'block';
-                setTimeout(() => copyFeedback.style.display = 'none', 2000);
-            } catch (err) {
-                console.error('Failed to copy HTML: ', err);
-            }
+        // Event listeners for each link with respective HTML content
+        document.getElementById('ios-app-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            displayTutorial(iosAppTutorial);
+        });
 
-            document.body.removeChild(textarea);
+        document.getElementById('mac-desktop-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            displayTutorial(macDesktopTutorial);
+        });
+
+        document.getElementById('windows-desktop-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            displayTutorial(windowsDesktopTutorial);
+        });
+
+        document.getElementById('outlook-web-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            displayTutorial(outlookWebTutorial);
         });
 
     </script>
